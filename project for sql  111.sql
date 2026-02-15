@@ -102,4 +102,17 @@ on e.employee_ID = a.employee_ID
 where a.attrition_status = 'Yes'
 and a.Exit_date :: Date <= e.Hire_date + Interval '2 Years'
 
+select 
+    case 
+        when at.Working_Hours > 9 THEN 'Overworked'
+        else 'Normal'
+    end as Workload_Category,
+    count(*) as attrition_count
+from Attendance at
+join Attrition a
+    on at.Employee_ID = a.Employee_ID
+	where a.Attrition_Status = 'Yes'
+group  by Workload_Category;
+
+
 
